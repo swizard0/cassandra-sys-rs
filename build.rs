@@ -4,7 +4,7 @@
 
 
 //#[allow(dead_code, uppercase_variables, non_camel_case_types)]
-//#[plugin(bindgen_plugin)]    
+//#[plugin(bindgen_plugin)]
 //mod mysql_bindings {
 //    bindgen!("/usr/include/mysql/mysql.h", match="mysql.h", link="mysql");
 //}
@@ -23,7 +23,11 @@ fn main() {
 
     println!("cargo:rustc-flags=-l dylib=crypto");
     println!("cargo:rustc-flags=-l dylib=ssl");
-    println!("cargo:rustc-flags=-l dylib=stdc++");
+    if cfg!(target_os = "macos") {
+        println!("cargo:rustc-flags=-l dylib=c++");
+    } else {
+        println!("cargo:rustc-flags=-l dylib=stdc++");
+    }
     println!("cargo:rustc-flags=-l dylib=uv");
     println!("cargo:rustc-link-search={}", "/usr/lib/x86_64-linux-gnu");
     println!("cargo:rustc-link-search={}", "/usr/local/lib/x86_64-linux-gnu");
