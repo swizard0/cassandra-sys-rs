@@ -21,6 +21,9 @@ fn main() {
         }
     }
 
+    if cfg!(target_os = "macos") {
+        println!("cargo:rustc-link-search={}", "/opt/local/lib");
+    }
     println!("cargo:rustc-flags=-l dylib=crypto");
     println!("cargo:rustc-flags=-l dylib=ssl");
     if cfg!(target_os = "macos") {
